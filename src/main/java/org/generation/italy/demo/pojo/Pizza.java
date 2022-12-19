@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.generation.italy.demo.interfac.PriceableInt;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,17 +42,22 @@ public class Pizza implements PriceableInt{
 	private int price;
 	
 	@ManyToOne
-	@JoinColumn(name = "promotion_id", nullable = false)
+	@JoinColumn(name = "promotion_id", nullable = true)
+	@JsonIgnore
 	private Promotion promotion;
 	
 	@ManyToMany
+	@JsonIgnore
 	private List<Ingredient> ingredients;
 	
 	public Pizza() {}
-	public Pizza(String name, String description, int price, Promotion promotion) {
+	public Pizza(String name, String description, int price) {
 		setName(name);
 		setPrice(price);
 		setDescription(description);
+	}
+	public Pizza(String name, String description, int price, Promotion promotion) {
+		this(name, description, price);
 		setPromotion(promotion);
 	}
 	public Pizza(String name, String description, int price, Promotion promotion, Ingredient...ingredients) {

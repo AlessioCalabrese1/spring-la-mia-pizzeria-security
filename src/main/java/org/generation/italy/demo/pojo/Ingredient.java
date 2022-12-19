@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class Ingredient {
 	private String name;
 	
 	@ManyToMany(mappedBy = "ingredients")
+	@JsonIgnore
 	private List<Pizza> pizzas;
 	
 	public Ingredient() { }

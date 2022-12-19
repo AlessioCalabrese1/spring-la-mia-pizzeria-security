@@ -16,15 +16,15 @@ public class SecurityConf {
 	@Bean
 	public SecurityFilterChain getFilterChain(HttpSecurity http) throws Exception {
 		
-		http.authorizeHttpRequests()
+		http.csrf().disable().authorizeHttpRequests()
 				.requestMatchers(HttpMethod.POST, "/create", "/update", "/delete",
 						"/drink/create", "/drink/update", "/drink/delete",
 						"/ingredient/create", "/ingredient/update", "/ingredient/delete"		
 						).hasAuthority("ADMIN")
-				.requestMatchers(HttpMethod.GET, "/**").hasAuthority("USER")
+				//.requestMatchers(HttpMethod.GET, "/**").hasAuthority("USER")
 				//.requestMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
 				//.requestMatchers("/useradmin", "/useradmin/**").hasAnyAuthority("USER", "ADMIN")	
-				//.requestMatchers("/**").permitAll()
+				.requestMatchers("/**").permitAll()
 			.and().formLogin()
 			.and().logout()
 		;
